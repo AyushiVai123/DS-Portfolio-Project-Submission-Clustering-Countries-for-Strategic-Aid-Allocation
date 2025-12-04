@@ -187,59 +187,62 @@ joblib.dump(kmeans, "models/aid_kmeans.pkl")
 HELP International — Country Clustering API for Aid Prioritization
 Problem statement
 HELP International needs a robust, data-driven way to prioritize aid across countries with diverse socioeconomic and health profiles. We segment countries via unsupervised learning and expose an API to classify new country inputs into need-based clusters.
-Target metric
-- Internal clustering quality via the Silhouette coefficient (higher is better).
-- Visual validation via PCA cluster separability and interpretability of centroids.
-Approach
-- EDA: Distributions, outliers, log-transform for skewed gdpp, feature creation (import_export_ratio), correlation heatmap.
-- Hypothesis testing:
-- Inflation vs GDP per capita: r\approx -0.33, p\approx 1.1\times 10^{-5} → significant inverse relationship.
-- Fertility vs income: negative correlation.
-- Child mortality vs income: negative correlation.
-- Modeling:
-- K-Means (elbow → k=3) with silhouette ≈ 0.1898.
-- Hierarchical clustering (Ward, 4 clusters) with silhouette ≈ 0.1846.
-- DBSCAN baseline failed to form ≥2 clusters; documented parameter sensitivity.
-- Validation: PCA confirms coherent structure; clusters map to development tiers (high/mid/low).
-- Insights & recommendations: Health efficiency, fertility reduction, inflation control, trade diversification; India clusters with developing economies yet shows transitional potential.
-Final scores
-- K-Means silhouette: 0.1898 (selected model).
-- Hierarchical silhouette: 0.1846.
-- DBSCAN: Not computable in baseline (single cluster/noise).
-Deployment steps
-- API: Flask app with /predict endpoint; consistent preprocessing and scaling; returns cluster with rationale.
-- Containerization: Docker + Gunicorn for production serving.
-- AWS hosting (options):
-- Elastic Beanstalk for rapid deployment (managed EC2 + ALB).
-- ECS Fargate for container orchestration, autoscaling, and HTTPS via ACM.
-Example request
-POST /predict
-Content-Type: application/json
+> Target metric
+>> Internal clustering quality via the Silhouette coefficient (higher is better).
+>> Visual validation via PCA cluster separability and interpretability of centroids.
+> Approach
+>> EDA: Distributions, outliers, log-transform for skewed gdpp, feature creation (import_export_ratio), correlation heatmap.
+>> Hypothesis testing:
+>> Inflation vs GDP per capita: r\approx -0.33, p\approx 1.1\times 10^{-5} → significant inverse relationship.
+>> Fertility vs income: negative correlation.
+>> Child mortality vs income: negative correlation.
+> Modeling:
+>> K-Means (elbow → k=3) with silhouette ≈ 0.1898.
+>> Hierarchical clustering (Ward, 4 clusters) with silhouette ≈ 0.1846.
+>> DBSCAN baseline failed to form ≥2 clusters; documented parameter sensitivity.
+>> Validation: PCA confirms coherent structure; clusters map to development tiers (high/mid/low).
 
-{
-  "child_mort": 55.2,
-  "total_fer": 3.7,
-  "life_expec": 68.5,
-  "income": 4500,
-  "health": 5.2,
-  "inflation": 7.8,
-  "imports": 22.0,
-  "exports": 15.4,
-  "gdpp": 2100,
-  "regions_South Asia": 1
-}
+> Insights & recommendations: Health efficiency, fertility reduction, inflation control, trade diversification; India clusters with developing economies yet shows transitional potential.
+> Final scores
+>> K-Means silhouette: 0.1898 (selected model).
+>> Hierarchical silhouette: 0.1846.
+>> DBSCAN: Not computable in baseline (single cluster/noise).
+
+> Deployment steps
+>> API: Flask app with /predict endpoint; consistent preprocessing and scaling; returns cluster with rationale.
+>> Containerization: Docker + Gunicorn for production serving.
+>> AWS hosting (options):
+>> Elastic Beanstalk for rapid deployment (managed EC2 + ALB).
+>>  ECS Fargate for container orchestration, autoscaling, and HTTPS via ACM.
+
+**Example request**
+> POST /predict
+> Content-Type: application/json
+
+>{
+ >> "child_mort": 55.2,
+ >> "total_fer": 3.7,
+ >> "life_expec": 68.5,
+ >> "income": 4500,
+ >> "health": 5.2,
+ >> "inflation": 7.8,
+ >> "imports": 22.0,
+ >> "exports": 15.4,
+ >> "gdpp": 2100,
+ >> "regions_South Asia": 1
+>}
 
 
-Example response
-{
-  "cluster": 2,
-  "rationale": [
-    "Higher child mortality and fertility elevate need",
-    "Lower income and life expectancy increase priority",
-    "Trade imbalance (imports > exports) indicates vulnerability"
-  ],
-  "note": "Use with country context; clustering is comparative, not prescriptive."
-}
+**Example response**
+>{
+ >> "cluster": 2,
+ >> "rationale": [
+ >>   "Higher child mortality and fertility elevate need",
+  >>  "Lower income and life expectancy increase priority",
+   >> "Trade imbalance (imports > exports) indicates vulnerability"
+  >>],
+  >>"note": "Use with country context; clustering is comparative, not prescriptive."
+>}
 
 
 Governance and maintenance
