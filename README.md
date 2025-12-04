@@ -21,10 +21,10 @@
 >similar_countries.json(currently for Algeria)
 
 
-Notebook: EDA, hypothesis testing, and modeling
-File: notebooks/help_international_analysis.ipynb
-- Introduction
-- Objective: Segment countries into development/need tiers to prioritize aid.
+**Notebook: EDA, hypothesis testing, and modeling**
+File: Clustering_Countries_for_Strategic_Aid_Allocation.ipynb
+> Introduction
+>> Objective: Segment countries into development/need tiers to prioritize aid.
 - Data: Socioeconomic and health indicators (income, gdpp, life_expec, child_mort, total_fer, health, inflation, imports, exports, import_export_ratio, regions one-hot).
 - EDA
 - Distributions & outliers: Histograms, boxplots; winsorization/log-transform for skewed gdpp.
