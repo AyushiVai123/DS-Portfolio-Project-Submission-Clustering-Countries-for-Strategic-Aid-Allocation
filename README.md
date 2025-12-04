@@ -25,30 +25,31 @@
 File: Clustering_Countries_for_Strategic_Aid_Allocation.ipynb
 > Introduction
 >> Objective: Segment countries into development/need tiers to prioritize aid.
-- Data: Socioeconomic and health indicators (income, gdpp, life_expec, child_mort, total_fer, health, inflation, imports, exports, import_export_ratio, regions one-hot).
-- EDA
-- Distributions & outliers: Histograms, boxplots; winsorization/log-transform for skewed gdpp.
-- Feature engineering: import_export_ratio; gdpp_log.
-- Correlations: Pearson heatmap; highlight meaningful pairs.
-- Hypothesis testing
-- Inflation vs GDP per capita: Pearson r\approx -0.33, p\approx 1.1\times 10^{-5} → significant inverse association.
-- Income vs child mortality: Negative correlation; higher income linked to lower child mortality.
-- Fertility vs income: Negative correlation; higher fertility associated with lower income.
-- Modeling (unsupervised)
-- K-Means: Elbow → k=3; silhouette ≈ 0.1898.
-- Hierarchical (Ward): Dendrogram → 4 clusters; silhouette ≈ 0.1846.
-- DBSCAN: Baseline failed (<2 clusters), tune via k-distance; document rationale.
-- Validation & interpretation
-- PCA (2D): Visual separation of clusters; interpret principal components.
-- Cluster centroids: Profile development tiers (high/mid/low).
-- India’s peer group: Countries similar to India; implications for policy.
-- Insights & recommendations
-- Policy: Health efficiency, fertility reduction, inflation control, trade diversification.
-- Strategic: India’s transitional leverage; regional cooperation.
+>> Data: Socioeconomic and health indicators (income, gdpp, life_expec, child_mort, total_fer, health, inflation, imports, exports, import_export_ratio, regions one-hot).
+> EDA
+>> Distributions & outliers: Histograms, boxplots; winsorization/log-transform for skewed gdpp.
+>> Feature engineering: import_export_ratio; gdpp_log.
+>> Correlations: Pearson heatmap; highlight meaningful pairs.
+> Hypothesis testing
+>> Inflation vs GDP per capita: Pearson r\approx -0.33, p\approx 1.1\times 10^{-5} → significant inverse association.
+>> Income vs child mortality: Negative correlation; higher income linked to lower child mortality.
+>> Fertility vs income: Negative correlation; higher fertility associated with lower income.
+> Modeling (unsupervised)
+>> K-Means: Elbow → k=3; silhouette ≈ 0.1898.
+>> Hierarchical (Ward): Dendrogram → 4 clusters; silhouette ≈ 0.1846.
+>> DBSCAN: Baseline failed (<2 clusters), tune via k-distance; document rationale.
+> Validation & interpretation
+>> PCA (2D): Visual separation of clusters; interpret principal components.
+>> Cluster centroids: Profile development tiers (high/mid/low).
+>> India’s peer group: Countries similar to India; implications for policy.
+> Insights & recommendations
+>> Policy: Health efficiency, fertility reduction, inflation control, trade diversification.
+>> Strategic: India’s transitional leverage; regional cooperation.
 Tip: Export final tables (cluster assignments, centroids) as CSV for stakeholders.
 
-Deployment code and files
-requirements.txt
+**Deployment code and files**
+
+> requirements.txt
 Flask==2.2.5
 scikit-learn==1.3.0
 pandas==2.0.3
@@ -57,7 +58,7 @@ joblib==1.3.2
 gunicorn==21.2.0
 
 
-run.py
+> run.py
 from app.routes import create_app
 
 app = create_app()
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 
-app/init.py
+> app/init.py
 from flask import Flask
 from .model_loader import load_model, load_scaler
 
@@ -80,7 +81,7 @@ def create_app():
     return app
 
 
-app/model_loader.py
+> app/model_loader.py
 import joblib
 from pathlib import Path
 
@@ -94,7 +95,7 @@ def load_scaler():
     return joblib.load(SCALER_PATH)
 
 
-app/preprocess.py
+> app/preprocess.py
 import numpy as np
 import pandas as pd
 
@@ -123,7 +124,7 @@ def transform(df: pd.DataFrame, scaler):
     return X_scaled
 
 
-app/routes.py
+> app/routes.py
 from flask import Blueprint, current_app, request, jsonify
 from .preprocess import to_dataframe, transform
 
@@ -152,7 +153,8 @@ def predict():
         return jsonify({"error": str(e)}), 400
 
 
-Dockerfile
+**Dockerfile**
+
 FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt .
@@ -162,7 +164,7 @@ ENV PORT=5000
 CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "run:app"]
 
 
-Training and serialization snippet (put in your notebook)
+**Training and serialization snippet (put in your notebook)** 
 import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
@@ -179,7 +181,7 @@ joblib.dump(kmeans, "models/aid_kmeans.pkl")
 
 
 
-README.md
+**README.md**
 Title
 HELP International — Country Clustering API for Aid Prioritization
 Problem statement
