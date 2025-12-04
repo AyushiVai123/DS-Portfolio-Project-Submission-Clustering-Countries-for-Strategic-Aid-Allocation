@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clustering Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h1,
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #666;
+    }
+
+    .result {
+      font-weight: bold;
+      color: #4CAF50;
+      font-size: 1.2em;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      background: #f9f9f9;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .download-link,
+    .back-link {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-link:hover,
+    .back-link:hover {
+      background-color: #45a049;
+    }
+
+    .back-link {
+      background-color: #2196F3;
+    }
+
+    .back-link:hover {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Clustering Result</h1>
+    <p>The most important feature for this cluster is: <span class="result">{{ important_feature }}</span></p>
+    <br/>
+    <h2>Top 5 Countries with Similar Features</h2>
+    <ul>
+      {% for country in similar_countries %}
+      <li>{{ country }}</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{{ json_filename }}" class="download-link" target="_blank">Download details of similar countries</a>
+    <br>
+    <a href="/" class="back-link">Back to input form</a>
+  </div>
+</body>
+
+</html>

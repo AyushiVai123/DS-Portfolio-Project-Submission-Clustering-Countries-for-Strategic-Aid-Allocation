@@ -1,47 +1,51 @@
-# DS-Portfolio-Project-Submission-Clustering-Countries-for-Strategic-Aid-Allocation
-Clustering Countries for Strategic Aid Allocation
+**Project Structure**
+>Data/
+>>Country_Data.csv
 
-Project Structure
+>Others/
+>>Clustering Countries for Strategic Aid Allocation_v2024.1
 
-Data/
+>>Clustering_Countries_for_Strategic_Aid_Allocation.ipynb
 
-Country_Data.csv
+>templates/
+>>input_form.html
 
-Others/
+>>result.html
 
-Clustering Countries for Strategic Aid Allocation_v2024.1
+>app.py
 
-Clustering_Countries_for_Strategic_Aid_Allocation.ipynb
+>Clustering Countries for Strategic Aid Allocation.pkl
 
-templates/
+>requirements.txt
 
-input_form.html
+>similar_countries.json(currently for Algeria)
 
-result.html
 
-app.py
+**Setup**
+1. Clone The Repository
+   ```
+   git clone https://github.com/pavannayakanti/scaler_portfolio.git
+   cd clustering
+   ```
+2. Create Virtual Env
+    ```
+    python3 -m venv .<name>
+    source .<name>/scripts/activate
+    ```
+3. Install Dependencies
+   ```
+   pip install -r requirements.txt
+   ```
 
-Clustering Countries for Strategic Aid Allocation.pkl
+**Running the model**
 
-requirements.txt
+This script will start a Flask API server Opens a UI where we can enter the data and Upon submission shows Countries with Similar Features based on input. Code to run is :  
+    ```
+    python app.py
+    ```
 
-similar_countries.json(currently for Algeria)
+**Blog**
+For a detailed analysis and insights from the project, see the Technical Blog at [https://medium.com/@sairams8210/creating-a-clustering-algorithm-for-stratergic-aid-allocation-756cd03dd233.](https://medium.com/@sairams8210/this-blogs-entails-my-personal-experience-on-creating-a-simple-website-that-hosts-a-clustering-756cd03dd233)
 
-Setup
-
-Clone The Repository
-git clone https://github.com/pavannayakanti/scaler_portfolio.git
-cd clustering
-Create Virtual Env
-python3 -m venv .<name>
-source .<name>/scripts/activate
-Install Dependencies
-pip install -r requirements.txt
-Running the model
-
-This script will start a Flask API server Opens a UI where we can enter the data and Upon submission shows Countries with Similar Features based on input. Code to run is :
-python app.py
-
-Blog For a detailed analysis and insights from the project, see the Technical Blog at https://medium.com/@ayushivaishya199/creating-a-clustering-algorithm-for-stratergic-aid-allocation-70781108508d.
-
-Tableau Dashboard For the Tableau Dashboard it can be accessed/viewed at https://github.com/AyushiVai123/DS-Portfolio-Project-Submission-Clustering-Countries-for-Strategic-Aid-Allocation/blob/main/Clustering%20Countries%20for%20Strategic%20Aid%20Allocation.twbx
+**Tableau Dashboard**
+For the Tableau Dashboard it can be accessed/viewed at https://public.tableau.com/app/profile/sairam4138/viz/ClusteringCountriesforStrategicAidAllocation/Dasboard
