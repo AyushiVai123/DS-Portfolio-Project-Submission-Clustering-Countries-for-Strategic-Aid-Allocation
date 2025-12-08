@@ -255,3 +255,7 @@ For a detailed analysis and insights from the project, see the Technical Blog at
 
 **Tableau Dashboard**
 For the Tableau Dashboard it can be accessed/viewed at https://github.com/AyushiVai123/DS-Portfolio-Project-Submission-Clustering-Countries-for-Strategic-Aid-Allocation/blob/main/Clustering%20Countries%20for%20Strategic%20Aid%20Allocation.twbx
+
+
+**Loom Video** 
+For the Loom Video it can be accessed/viewed at https://www.loom.com/share/9883bf227a034a74b535ab52f9193526
